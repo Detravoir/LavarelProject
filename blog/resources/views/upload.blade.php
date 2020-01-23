@@ -42,7 +42,6 @@
 
         .content {
             text-align: center;
-            margin-top: 70%;
         }
 
         .title {
@@ -62,23 +61,15 @@
         .m-b-md {
             margin-bottom: 30px;
         }
-        .musictitle {
-            margin-top: 30px;
-        }
-
-        .search {
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
         <div class="top-right links">
-            <a href="">Music</a>
+            <a href="{{ url('/music') }}">Music</a>
             @auth
                 <a href="{{ url('/home') }}">Home</a>
-                <a href="{{ url('/upload') }}">Upload</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
 
@@ -90,31 +81,17 @@
     @endif
 
     <div class="content">
-        <form class="search" action="{{route('music.search')}}" method="POST" role="search">
-            {{ csrf_field() }}
-            <div class="input-group">
-                <input type="text" class="form-control" name="search"
-                       placeholder="Search songs"> <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-search">Search</span>
-            </button>
-        </span>
-            </div>
-        </form>
-
-        @foreach($musics as $music)
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{substr($music->music_url, -11)}}"
-                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe><br/>
-            {{$music->music_name}}<br/>
-            Genre: {{$music->genre}}<br/>
-{{--            @can('delete', App\Music::class)--}}
-{{--                <a href="{{ route('music.delete', ["user" => Auth::user()->permission]) }}">Delete</a>--}}
-{{--            @endcan--}}
-            <br/>
-            <br/>
-            <br/>
-        @endforeach
+            <form name="upload" action="{{route('music.store')}}" method="post">
+                @csrf
+                Name of the song: <input type="text" name="musicname"><br/>
+                <br/>
+                <br/>
+                Youtube URL: <input type="text" name="musicurl"><br/>
+                <br/>
+                Genre of the song: <input type="text" name="genre"><br/>
+                <br/>
+                <button type="submit" value="submit">Post</button>
+            </form>
         <div class="links">
         </div>
     </div>

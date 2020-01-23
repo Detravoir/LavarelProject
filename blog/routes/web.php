@@ -15,9 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/music', function () {
-    return view('music');
+//Route::get('/music', "MusicController@index")->name('music');
+
+Route::get('/upload', function () {
+    return view('upload');
 });
+
+Route::post('/music/search', 'MusicController@search')->name('music.search');
+
+Route::resource('music', 'MusicController');
+
+//Route::post('/music', "MusicController@store")->name('music.upload');
+//Route::delete('/music', "MusicController@delete")->name('music.delete');
+
 
 Auth::routes();
 
