@@ -19,7 +19,10 @@ class MusicController extends Controller
         $musics = Music::with('users')->get();
 //        dd($musics);
 
-        return view('music', ['musics' => $musics]);
+        $genres = Music::select(['genre'])->distinct()->get();
+//        dd($genres);
+
+        return view('music', ['musics' => $musics, 'genres' => $genres]);
     }
 
     /**
@@ -112,10 +115,23 @@ class MusicController extends Controller
             'search' => 'max: 225'
         ]);
 
-        $music = Music::where('music_name', 'like','%'.$request->search. '%')->get();
+        if(!empty($request->search)){
+            $music = Music::where('music_name', 'like', '%' . $request->search . '%')->get();
+            $genre = null;
+        }else{
+            $music = null;
+        }
+        if (!empty($request->genre)){
+            $genre = Music::where('genre', 'like', '%' .$request->genre. '%')->get();
+            $music = null;
+        }else {
+            $genre = null;
+        }
+
 
         return view('musicsearch', [
-            'music_name' =>$music
+            'genre' => $genre,
+            'music_name' => $music
         ]);
     }
 }

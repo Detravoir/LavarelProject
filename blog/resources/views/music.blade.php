@@ -94,11 +94,18 @@
             {{ csrf_field() }}
             <div class="input-group">
                 <input type="text" class="form-control" name="search"
-                       placeholder="Search songs"> <span class="input-group-btn">
+                       placeholder="Search songs"> <span class="input-group-btn"></span>
                 <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-search">Search</span>
-            </button>
-        </span>
+                    <span class="glyphicon glyphicon-search">Search</span>
+                    </button>
+                    <br/>
+
+                @foreach($genres as $genre)
+                    <input type="radio" name="genre" value="{{$genre->$genre}}">
+                    <label>{{$genre->genre}}</label>
+                @endforeach
+
+
             </div>
         </form>
 

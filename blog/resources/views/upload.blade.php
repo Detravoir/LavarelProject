@@ -61,6 +61,10 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+
+        .genres {
+            text-transform: lowercase;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +92,7 @@
                 <br/>
                 Youtube URL: <input type="text" name="musicurl"><br/>
                 <br/>
-                Genre of the song: <input type="text" name="genre"><br/>
+                Genre of the song: <input class="genres" type="text" name="genre"><br/>
                 <br/>
                 <button type="submit" value="submit">Post</button>
             </form>
